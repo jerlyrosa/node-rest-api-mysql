@@ -26,9 +26,8 @@ export const getEmployes = async (req, res) => {
 };
 
 export const CreateEmployee = async (req, res) => {
+  const { name, salary } = req.body;
   try {
-    const { name, salary } = req.body;
-
     const [rows] = await pool.query(
       "INSERT INTO employee (name, salary) VALUES(?, ?)",
       [name, salary]
@@ -61,10 +60,9 @@ export const DeleteEmployee = async (req, res) => {
 };
 
 export const UpdateEmployee = async (req, res) => {
+  const { id } = req.params;
+  const { name, salary } = req.body;
   try {
-    const { id } = req.params;
-    const { name, salary } = req.body;
-
     const [result] = await pool.query(
       "UPDATE employee SET name = IFNULL(?, name), salary = IFNULL(?, salary) WHERE id = ?",
       [name, salary, id]
