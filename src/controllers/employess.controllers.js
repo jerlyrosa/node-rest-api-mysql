@@ -1,9 +1,24 @@
-export const getEmployess = (req, res) => {
-  res.send("hi");
+import { pool } from "../utils/db.js";
+
+export const getEmployess = async (req, res) => {
+  const [rows] = await pool.query("SELECT * FROM employee");
+  res.json(rows);
 };
 
-export const CreateEmployee = (req, res) => {
-  res.send("Craete employees");
+export const CreateEmployee = async (req, res) => {
+  const { name, salary } = req.body;
+
+  const [rows] = await pool.query(
+    "INSERT INTO employee (name, salary) VALUES(?, ?)",
+    [name, salary]
+  );
+
+  // res.send("Post success");
+  res.send({
+    id: rows.insertId,
+    name,
+    salary,
+  });
 };
 
 export const UpdateEmployee = (req, res) => {
