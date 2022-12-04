@@ -13,7 +13,7 @@ routes.get("/employees", getEmployess);
 routes.get("/employees/:id", getEmployes);
 
 routes.post("/employees", CreateEmployee);
-routes.put("/employees", UpdateEmployee);
+routes.patch("/employees/:id", UpdateEmployee);
 
 routes.delete("/employees/:id", DeleteEmployee);
 
